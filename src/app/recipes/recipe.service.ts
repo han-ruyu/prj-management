@@ -9,7 +9,8 @@ export class RecipeService {
 
     recipesChanged = new Subject<Recipe[]>();
 
-    recipes: Recipe[] = [
+    private recipes: Recipe[] = [];
+    /* recipes: Recipe[] = [
         new Recipe('A Test Recipt', 'This is simply a test', 'https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe_images/classic-lasange.jpg?itok=aYJg59N3',
         [
             new Ingredient('Meat', 1),
@@ -20,11 +21,16 @@ export class RecipeService {
             new Ingredient('Buns', 2),
             new Ingredient('Meat', 1)
         ])
-    ];
+    ]; */
 
     constructor(private shoppingListService: ShoppingListService) {}
     getRecipes() {
         return this.recipes.slice();
+    }
+
+    setRecipes(recipes: Recipe[]) {
+        this.recipes = recipes;
+        this.recipesChanged.next(this.recipes.slice());
     }
 
     addIngredientsToShoppingList(ingredients: Ingredient[]) {
