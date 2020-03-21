@@ -53,16 +53,18 @@ const handleError = (errorRes: any) => {
 }
 @Injectable()
 export class AuthEffects {
+
     @Effect()
     autoLogin = this.actions$.pipe(
         ofType(AuthActions.AUTO_LOGIN),
-        tap(() => {
+        map(() => {
             const userData: {
                 email: string,
                 id: string,
                 _token: string,
                 _tokenExpirationDate: string
             } = JSON.parse(localStorage.getItem('userData'));
+            console.log("----------"+userData)
             if (!userData) {
                 return { type: "DUMMY" }
             }
